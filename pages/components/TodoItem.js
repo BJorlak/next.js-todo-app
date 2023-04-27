@@ -8,7 +8,7 @@ function TodoItem({ todo, index, handleComplete, handleDelete }) {
   const { text, completed, description, dueDate } = todo;
 
   return (
-    <li className="flex items-center py-4">
+    <li className="flex items-center py-4 bg-teal-100 rounded-md p-6">
       <button
         className={`p-2 rounded-full ${
           completed ? "bg-green-500" : "bg-gray-300"
