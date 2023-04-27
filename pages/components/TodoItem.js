@@ -1,49 +1,77 @@
-import {
-  AiOutlineCheckCircle,
-  AiOutlineDelete,
-} from "react-icons/ai";
+import React from "react";
 
-export default function TodoItem({
-  todo,
-  index,
-  handleComplete,
-  handleDelete,
-}) {
+function TodoItem({ todo, index, handleComplete, handleDelete }) {
+  if (!todo) {
+    return null;
+  }
+
+  const { text, completed, description, dueDate } = todo;
+
   return (
-    <li
-      className={`flex justify-between items-center py-2 px-3 rounded-md ${
-        todo.completed ? "bg-green-100" : "bg-white"
-      }`}
-    >
-      <div className="flex-1">
-        <span
-          className={`text-lg ${todo.completed && "line-through"}`}
-        >
-          {todo.text}
-        </span>
-        {todo.description && (
-          <p className="text-gray-500">{todo.description}</p>
-        )}
-        {todo.dueDate && (
-          <p className="text-red-500">{todo.dueDate}</p>
-        )}
-      </div>
-      <div>
-        {!todo.completed && (
-          <button
-            className="text-green-500 hover:text-green-600 mr-4"
-            onClick={() => handleComplete(index)}
+    <li className="flex items-center py-4">
+      <button
+        className={`p-2 rounded-full ${
+          completed ? "bg-green-500" : "bg-gray-300"
+        }`}
+        onClick={() => handleComplete(index)}
+      >
+        {completed ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <AiOutlineCheckCircle />
-          </button>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        ) : (
+          ""
         )}
-        <button
-          className="text-red-500 hover:text-red-600"
-          onClick={() => handleDelete(index)}
+      </button>
+      <div className="ml-4 flex-grow">
+        <div
+          className={`text-gray-900 font-bold ${
+            completed ? "line-through" : ""
+          }`}
         >
-          <AiOutlineDelete />
-        </button>
+          {text}
+        </div>
+        {description && (
+          <div className="text-gray-700 text-sm">{description}</div>
+        )}
+        {dueDate && (
+          <div className="text-gray-700 text-sm">
+            Due Date: {dueDate}
+          </div>
+        )}
       </div>
+      <button
+        className="p-2 ml-4 rounded-full bg-red-500"
+        onClick={() => handleDelete(index)}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
     </li>
   );
 }
+
+export default TodoItem;
